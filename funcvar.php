@@ -33,6 +33,11 @@ function size_format($bytes, $decimals = 2){
   return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor))." $size[$factor]";
 }
 
+function base_url(){
+  $bu = "xamphost/dkis_share_konsep_4";
+  return $bu;
+}
+
 $user_limit = 5000000;
 $perusahaan = "TI";
 ?>
