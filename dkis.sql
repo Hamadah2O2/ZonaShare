@@ -34,11 +34,6 @@ CREATE TABLE IF NOT EXISTS `files` (
 
 -- Dumping data for table dkisshare_cirkab.files: ~4 rows (approximately)
 DELETE FROM `files`;
-INSERT INTO `files` (`id`, `nama`, `ukuran`, `jenis`, `pemilik`, `tag`, `date`, `globaly`) VALUES
-	(1, 'Blog.pdf', 2321312312, 'pdf', 'haidar', '', '2023-07-28 06:28:32', 1),
-	(8, 'polos.jpg', 635425, 'image/jpeg', 'rama', '', '2023-07-27 12:55:23', 0),
-	(9, 'Jadwal PTM.png', 452193, 'image/png', 'rama', 'poweer renger', '2023-07-28 04:11:03', 1),
-	(10, '20201127_155601.jpg', 893296, 'image/jpeg', 'haidar', '', '2023-07-28 07:56:52', 0);
 
 -- Dumping structure for table dkisshare_cirkab.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -53,9 +48,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table dkisshare_cirkab.users: ~2 rows (approximately)
 DELETE FROM `users`;
-INSERT INTO `users` (`UID`, `username`, `password`, `name`, `jabatan`) VALUES
-	('1241141gzsn2', 'haidar', '321', 'Rozyan', 'Programer Jaman Now'),
-	('24124128y812', 'rama', '123', 'Mas Rama', '');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
