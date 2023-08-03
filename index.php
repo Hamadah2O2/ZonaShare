@@ -78,7 +78,7 @@ if (isset($_GET['tag'])) {
           <a href="index3.html" class="nav-link">My Files</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Shared</a>
+          <a href="global/" class="nav-link">Shared</a>
         </li>
       </ul>
 
@@ -240,7 +240,7 @@ if (isset($_GET['tag'])) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="global/" class="nav-link">
                 <i class="nav-icon fas fa-share-alt"></i>
                 <p>
                   Sharing Zone
@@ -298,9 +298,9 @@ if (isset($_GET['tag'])) {
           <div class="card">
             <div class="card-header">
               <!-- Button Upload files -->
-              <button class="btn" data-toggle="modal" data-target="#myModal">
+              <!-- <button class="btn" data-toggle="modal" data-target="#myModal">
                 <i class="fas fa-plus"></i>
-              </button>
+              </button> -->
 
               <!-- Modal Form Upload files -->
               <div class="modal fade" id="myModal">
@@ -317,13 +317,13 @@ if (isset($_GET['tag'])) {
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      <form action="aksi.php?act=tambah" enctype="multipart/form-data" class="dropzone dropzone-s1" id="image-upload">
-                        <input type="file" name="files" id="">
+                      <form action="aksi.php?act=tambah" enctype="multipart/form-data" class="dropzone dropzone-s1" id="myDropzone">
                       </form>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                      <input type="text" class="form-control" name="tag" id="tag" placeholder="Masukan Tag">
                       <button id="uploadFile" class="right btn btn-primary">Upload Files</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
@@ -331,6 +331,17 @@ if (isset($_GET['tag'])) {
                   </div>
                 </div>
               </div>
+
+              <form action="./aksi?act=tambah" method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                  <input type="file" class="form-control" name="file[]" id="" multiple required>
+                  <div style="width: 250px;">
+                    <input type="text" class="form-control rounded-0" name="tag" id="" placeholder="Tagar">
+                  </div>
+                  <input type="submit" class="btn btn-primary" value="Kirim">
+                  <datalist></datalist>
+                </div>
+              </form>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -345,7 +356,7 @@ if (isset($_GET['tag'])) {
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: 60vh;">
+            <div class="card-body table-responsive p-0" >
               <table class="table table-head-fixed text-nowrap data Table" id="dataa">
                 <thead>
                   <tr>
@@ -438,13 +449,54 @@ if (isset($_GET['tag'])) {
 
   <!-- dropzone -->
   <script type="text/javascript">
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone(".dropzone", {
-      autoProcessQueue: false
-    });
+    // Dropzone.autoDiscover = false;
+    // var myDropzone = new Dropzone(".dropzone", {
+    //   autoProcessQueue: false
+    // });
 
-    $('#uploadFile').click(function() {
-      myDropzone.processQueue();
+    // $('#uploadFile').click(function() {
+    //   myDropzone.processQueue();
+    // });
+
+    // // Tangani klik tombol Upload
+    // document.getElementById("uploadFile").addEventListener("click", function() {
+    //   var tag = document.getElementById("tag").value;
+    //   var formData = new FormData();
+    //   formData.append("tag", tag);
+
+    //   // Kirim data input tambahan ke server
+    //   var xhr = new XMLHttpRequest();
+    //   xhr.open("POST", "upload.php", true);
+    //   xhr.send(formData);
+    // });
+    $(document).ready(function() {
+      // Konfigurasi Dropzone
+      Dropzone.options.myDropzone = {
+        autoProcessQueue: false, // Tidak mengunggah otomatis
+        paramName: "file", // Nama parameter untuk berkas di server
+        init: function() {
+          var myDropzone = this;
+          $("#uploadFile").on("click", function(e) {
+            e.preventDefault();
+            myDropzone.processQueue(); // Mulai mengunggah berkas
+          });
+        },
+      };
+
+      // Mengirim data ke server menggunakan Ajax
+      $("#uploadFile").on("click", function() {
+        var tag = $("#tag").val();
+        $.ajax({
+          type: "POST",
+          url: "upload.php",
+          data: {
+            tag: tag
+          }, // Kirim teks tambahan
+          success: function(response) {
+            alert(response); // Tampilkan respons dari server
+          },
+        });
+      });
     });
   </script>
 </body>
