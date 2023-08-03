@@ -304,28 +304,27 @@ if (isset($_GET['tag'])) {
 
               <!-- Modal Form Upload files -->
               <div class="modal fade" id="myModal">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 70% !important;">
                   <div class="modal-content">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title">Modal Heading</h4>
-                      <button type="button" class="close" data-dismiss="#myModal" aria-label="Close">
+                      <h4 class="modal-title">Upload Files</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                      <form action="aksi.php?act=tambah" enctype="multipart/form-data" class="dropzone dropzon" id="image-upload">
+                      <form action="aksi.php?act=tambah" enctype="multipart/form-data" class="dropzone dropzone-s1" id="image-upload">
+                        <input type="file" name="files" id="">
                       </form>
-                      <div class="card">
-                        <button id="uploadFile" class="right btn btn-primary">Upload Files</button>
-                      </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                      <button id="uploadFile" class="right btn btn-primary">Upload Files</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
