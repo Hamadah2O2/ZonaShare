@@ -38,6 +38,13 @@ function base_url(){
   return $bu;
 }
 
+class file {
+  function tambah(){
+    
+  }
+
+}
+
 $user_limit = 5000000;
 $perusahaan = "TI";
 ?>

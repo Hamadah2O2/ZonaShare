@@ -4,6 +4,8 @@ include '../koneksi.php';
 include '../funcvar.php';
 session_start();
 
+$fl = new file;
+
 if (isset($_SESSION['user'])) {
   $user = $_SESSION['user'];
   $nama = $_SESSION['nama'];
@@ -309,18 +311,9 @@ if (isset($_GET['tag'])) {
 
 
               <div class="d-flex justify-content-between align-items-center">
-                <form action="../aksi?act=tambah" method="post" enctype="multipart/form-data">
-                  <div class="input-group input-group-sm me-auto" style="width: 100%;">
-                    <input type="file" class="form-control-bs5" name="file[]" id="" multiple required>
-                    <div style="width: 20%;">
-                      <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id="" placeholder="Tagar">
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Kirim">
-                  </div>
-                  <datalist id="tag">
-                    <option value="INITag"></option>
-                  </datalist>
-                </form>
+                <div class="">
+
+                </div>
 
 
                 <div class="input-group input-group-sm" style="width: 150px;">

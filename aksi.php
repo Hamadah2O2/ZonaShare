@@ -41,7 +41,6 @@ if (isset($_GET['act'])) {
         }
       }        
     }
-    header("location: ./?berhasil");
   }
   
   if($act="edit") {

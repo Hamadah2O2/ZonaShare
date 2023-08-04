@@ -27,7 +27,8 @@ if (isset($_GET['tag'])) {
   <title>OpenCloud</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="./assets/adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -124,7 +125,7 @@ if (isset($_GET['tag'])) {
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
         <img src="./assets/img/logokominfo.png" alt="Logo" class="brand-image img-circle" style="opacity: .8">
@@ -135,8 +136,10 @@ if (isset($_GET['tag'])) {
       <div class="sidebar">
         <!-- Storage Limit -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="text-white container-fluid" style="font-size: 60px;">
-            <i class="fas fa-hdd"></i>
+          <div class="text-white container-fluid">
+            <!-- <input type="text" id="knob" value="10"> -->
+            <input type="text" id="knob" value="40" data-width="40" data-height="40" data-thickness="0.15" data-size
+              data-fgColor="#3c8dbc" data-readonly="true">
           </div>
         </div>
 
@@ -172,7 +175,8 @@ if (isset($_GET['tag'])) {
               </a>
               <ul class="nav nav-treeview">
                 <div class="input-group">
-                  <input type="text" class="form-control form-control-sidebar text-center" placeholder="Cari Tagar" name="tag_search" id="tag_search">
+                  <input type="text" class="form-control form-control-sidebar text-center" placeholder="Cari Tagar"
+                    name="tag_search" id="tag_search">
                   <span class="input-group-text form-control-sidebar"><i class="fas fa-search"></i></span>
                 </div>
                 <div id="datags">
@@ -183,15 +187,15 @@ if (isset($_GET['tag'])) {
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
+      </div>
 
-        <!-- Sidebar user panel (optional) -->
-        <div class="sidebar-custom pb-2 d-flex align-items-center fixed-bottom">
-          <div class="image mt-2">
-            <img src="./assets/adminlte/img/user2-160x160.jpg"  class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
-          </div>
+      <!-- Sidebar user panel (optional) -->
+      <div class="sidebar-custom d-flex align-items-center">
+        <div class="image mt-2">
+          <img src="./assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="infoo">
+          <a href="#" class="d-block text-white">Alexander Pierce</a>
         </div>
       </div>
       <!-- /.sidebar -->
@@ -223,16 +227,17 @@ if (isset($_GET['tag'])) {
 
 
               <div class="d-flex justify-content-between align-items-center">
-                <form action="./aksi?act=tambah" method="post" enctype="multipart/form-data">
+                <form method="post" id="dataUpload" enctype="multipart/form-data">
                   <div class="input-group-bs5 me-auto" style="width: 90%;">
                     <input type="file" class="form-control-bs5" name="file[]" id="" multiple required>
                     <div style="width: 40%;">
-                      <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id="" placeholder="Tagar">
+                      <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id=""
+                        placeholder="Tagar">
                     </div>
                     <input type="submit" class="btn btn-primary" value="Upload">
                   </div>
                   <datalist id="tag">
-                    <?php 
+                    <?php
                     $stmtag = $c->query("SELECT tag FROM files WHERE pemilik = '$user' GROUP BY tag");
 
                     while ($data = $stmtag->fetch_array()) {
@@ -244,7 +249,8 @@ if (isset($_GET['tag'])) {
 
 
                 <div class="input-group input-group-sm" style="width: 150px;">
-                  <input name="table_search" class="form-control float-right" placeholder="Search" id="search" type="text">
+                  <input name="table_search" class="form-control float-right" placeholder="Search" id="search"
+                    type="text">
 
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
@@ -256,7 +262,7 @@ if (isset($_GET['tag'])) {
 
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" >
+            <div class="card-body table-responsive p-0">
               <table class="table table-head-fixed text-nowrap data Table" id="dataa">
                 <thead>
                   <tr>
@@ -268,7 +274,7 @@ if (isset($_GET['tag'])) {
                   </tr>
                 </thead>
                 <tbody id="files">
-                  
+
                 </tbody>
               </table>
             </div>
@@ -327,7 +333,8 @@ if (isset($_GET['tag'])) {
 
   <!-- dropzone -->
   <script type="text/javascript">
-    $(document).ready(function() {
+
+    $(document).ready(function () {
       load_data();
       load_files();
 
@@ -338,7 +345,7 @@ if (isset($_GET['tag'])) {
           data: {
             tag_search: tag_search
           },
-          success: function(hasil) {
+          success: function (hasil) {
             $('#datags').html(hasil);
           }
         });
@@ -351,43 +358,117 @@ if (isset($_GET['tag'])) {
           data: {
             search: search
           },
-          success: function(hasil) {
+          success: function (hasil) {
             $('#files').html(hasil);
           }
+
+        });
+
+        $('#dataUpload').on('submit', function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          $.ajax({
+            url: './aksi.php?act=tambah',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function () {
+              load_files();
+              $('#dataUpload').get(0).reset();
+            }
+          });
         });
       }
 
-      $('#tag_search').keyup(function() {
+      $('#tag_search').keyup(function () {
         var tag_search = $("#tag_search").val();
         load_data(tag_search);
       });
 
-      $('#search').keyup(function() {
+      $('#search').keyup(function () {
         var search = $("#search").val();
         load_files(search);
       });
     });
 
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone(".dropzone", {
-      autoProcessQueue: false
-    });
+  </script>
 
-      // Mengirim data ke server menggunakan Ajax
-      $("#uploadFile").on("click", function() {
-        var tag = $("#tag").val();
-        $.ajax({
-          type: "POST",
-          url: "upload.php",
-          data: {
-            tag: tag
-          }, // Kirim teks tambahan
-          success: function(response) {
-            alert(response); // Tampilkan respons dari server
-          },
-        });
-      });
-    });
+  <!-- knob -->
+  <script type="text/javascript">
+    /* jQueryKnob */
+
+    $('#knob').knob({
+      /*change : function (value) {
+       //console.log("change : " + value);
+       },
+       release : function (value) {
+       console.log("release : " + value);
+       },
+       cancel : function () {
+       console.log("cancel : " + this.value);
+       },*/
+      draw: function () {
+
+        // "tron" case
+        if (this.$.data('skin') == 'tron') {
+
+          var a = this.angle(this.cv)  // Angle
+            ,
+            sa = this.startAngle          // Previous start angle
+            ,
+            sat = this.startAngle         // Start angle
+            ,
+            ea                            // Previous end angle
+            ,
+            eat = sat + a                 // End angle
+            ,
+            r = true
+
+          this.g.lineWidth = this.lineWidth
+
+          this.o.cursor
+            && (sat = eat - 0.3)
+            && (eat = eat + 0.3)
+
+          if (this.o.displayPrevious) {
+            ea = this.startAngle + this.angle(this.value)
+            this.o.cursor
+              && (sa = ea - 0.3)
+              && (ea = ea + 0.3)
+            this.g.beginPath()
+            this.g.strokeStyle = this.previousColor
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
+            this.g.stroke()
+          }
+
+          this.g.beginPath()
+          this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
+          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
+          this.g.stroke()
+
+          this.g.lineWidth = 2
+          this.g.beginPath()
+          this.g.strokeStyle = this.o.fgColor
+          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
+          this.g.stroke()
+
+          return false
+        }
+
+        $(this.i).css('font-size', '13pt');
+      }
+    })
+    /* END JQUERY KNOB */
+
+    //INITIALIZE SPARKLINE CHARTS
+    var sparkline1 = new Sparkline($('#sparkline-1')[0], { width: 240, height: 70, lineColor: '#92c1dc', endColor: '#92c1dc' })
+    var sparkline2 = new Sparkline($('#sparkline-2')[0], { width: 240, height: 70, lineColor: '#f56954', endColor: '#f56954' })
+    var sparkline3 = new Sparkline($('#sparkline-3')[0], { width: 240, height: 70, lineColor: '#3af221', endColor: '#3af221' })
+
+    sparkline1.draw([1000, 1200, 920, 927, 931, 1027, 819, 930, 1021])
+    sparkline2.draw([515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921])
+    sparkline3.draw([15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21])
   </script>
 </body>
 
