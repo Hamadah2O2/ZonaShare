@@ -19,7 +19,8 @@ if (isset($_GET['act'])) {
 
   if($_SERVER["REQUEST_METHOD"] == "POST" && $act=="tambah"){
     //tambah data file
-    $total= isset($_FILES['file']) ? count((array)$_FILES["file"]["name"]) : 0;
+
+    $total = isset($_FILES['file']['name']) ? count($_FILES['file']['name']) : 0 ;
 
     for ($i=0; $i < $total; $i++) { 
       $namafile= $_FILES['file']['name'][$i];
@@ -30,15 +31,15 @@ if (isset($_GET['act'])) {
   
       $stm = $c->query("SELECT * FROM files WHERE nama='$namafile'");
       if ($stm->num_rows>=1) {
-        header("locaton: ./?filesudahada=$namafile");
+        header("locaton: ./?gagal");
       } else {
         move_uploaded_file($tmpfile, "cloud/".$namafile);
         $stm = $c->query("INSERT INTO files (`nama`, `ukuran`, `jenis`, `pemilik`, `tag`) VALUES('$namafile', '$ukuranfile', '$jenisfile', '$user', '$tag')");
         if (!$stm) {
           echo $c->error;
         } else {
-        }  
-      }
+        }
+      }        
     }
     header("location: ./?berhasil");
   }
