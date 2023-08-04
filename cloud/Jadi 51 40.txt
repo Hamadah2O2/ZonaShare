@@ -1,0 +1,30 @@
+
+                              EEEEE     EEEEE
+                             E     E   E     E
+                           ERT      ILU      TRE
+                             ER             RE
+                              E             E
+                             
+                             
+                             
+                             
+                             
+TODO LIST:
+
+Database Kasir
+- User
+- Barang
+- Transaksi
+- Member
+
+Login
+- Tampilan  
+- Splash screen
+- Kasir
+- Admin
+
+
+Kasir
+
+
+

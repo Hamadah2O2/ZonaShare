@@ -17,12 +17,7 @@ if (isset($_POST['tag_search']) && $_POST != "") {
 }
 
 while ($data = $stm->fetch_array()) { ?>
-  <li class="nav-item">
-    <a href="./?tag=<?= $data['tag'] ?>" class="nav-link">
-      <i class="nav-icon fas fa-fw fa-hashtag"></i>
-      <p><?= $data['tag'] ?></p>
-    </a>
-  </li>
+  <option value="<?= $data['tag'] ?>"></option>
 <?php
 }
 ?>
