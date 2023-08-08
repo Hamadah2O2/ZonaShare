@@ -34,7 +34,7 @@ function size_format($bytes, $decimals = 2){
 }
 
 function base_url(){
-  $bu = "xamphost/dkis_share_konsep_4";
+  $bu = "http://xamphost/dkis_share_konsep_4/";
   return $bu;
 }
 
