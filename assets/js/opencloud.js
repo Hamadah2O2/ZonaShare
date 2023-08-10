@@ -31,13 +31,15 @@ function load_input_tag() {
   });
 }
 
-function load_files(search) {
+function load_files(search, col = "date", asdesc = "ASC") {
   search = $("#search").val();
   $.ajax({
     method: "POST",
     url: "./data/files.php",
     data: {
-      search: search
+      search: search,
+      col: col,
+      asdesc: asdesc
     },
     success: function (hasil) {
       $('#listFile').html(hasil);
@@ -72,6 +74,7 @@ $(document).ready(function () {
 });
 
 // CRUD
+//upload
 $('#dataUpload').on('submit', function (e) {
   e.preventDefault();
   var formData = new FormData(this);
@@ -89,6 +92,42 @@ $('#dataUpload').on('submit', function (e) {
   });
 });
 
+//delete
+function deleteFile(id) {
+  if (confirm('apakah kamu yakin menghapus file ini?') == true) {
+    $.ajax({
+      url: './aksi.php?act=hapus',
+      method: 'POST',
+      data: {
+        "id[]": id
+      },
+      success: function (h) {
+        $('#pesan').html(h);
+        load_files();
+      }
+    });
+  }
+}
+//deleteMany
+$("#deleteMany").click(function() {
+  if (confirm('apakah kamu yakin menghapus file ini?') == true) {
+    var id = $('input[name="pilih[]"]:checked').map(function() {
+      return $(this).val();
+    }).get();
+    $.ajax({
+      url: './aksi.php?act=hapus',
+      method: 'POST',
+      data: {
+        id: id
+      },
+      success: function(h) {
+        $('#pesan').html(h);
+        load_files();
+      }
+    });
+  }
+});
+
 // SEARCH
 $('#tag_search').keyup(function () {
   var tag_search = $("#tag_search").val();
@@ -101,21 +140,7 @@ $('#search').keyup(function () {
 });
 
 //CRUD function
-function deleteFile(id) {
-  if (confirm('apakah kamu yakin menghapus file ini?') == true) {
-    $.ajax({
-      url: './aksi.php?act=hapus',
-      method: 'GET',
-      data: {
-        id: id
-      },
-      success: function (h) {
-        $('#pesan').html(h);
-        load_files();
-      }
-    });
-  }
-}
+
 
 // toastr
 function showSuccess(pesan) {

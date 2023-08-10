@@ -65,7 +65,7 @@ if (isset($_GET['tag'])) {
   <script src="./assets/sortable-2.2.0/sortable.js"></script>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed overflow-hidden">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -91,37 +91,51 @@ if (isset($_GET['tag'])) {
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-            <i class="fas fa-search"></i>
-          </a>
-          <div class="navbar-search-block">
-            <form class="form-inline">
-              <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                  <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
-                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </li>
-
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+          <a class="nav-link" data-controlsidebar-slide="true" href="#" role="button">
             <i class="fas fa-th-large"></i>
           </a>
+        </li>
+        <li class="nav-item dropdown user-menu">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <img src="<?= base_url() ?>assets/adminlte/img/user1-128x128.jpg" class="user-image img-circle elevation-2" alt="User Image">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <!-- User image -->
+            <li class="user-header bg-primary">
+              <img src="<?= base_url() ?>assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+
+              <p>
+                Alexander Pierce - Web Developer
+                <small>Member since Nov. 2012</small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+            <li class="user-body">
+              <div class="row">
+                <div class="col-4 text-center">
+                  <a href="#">Followers</a>
+                </div>
+                <div class="col-4 text-center">
+                  <a href="#">Sales</a>
+                </div>
+                <div class="col-4 text-center">
+                  <a href="#">Friends</a>
+                </div>
+              </div>
+              <!-- /.row -->
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <a href="#" class="btn btn-default btn-flat">Profile</a>
+              <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
@@ -208,12 +222,10 @@ if (isset($_GET['tag'])) {
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper overflow-visible">
       <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
+      <div class="p-2">
 
-        </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
 
@@ -222,15 +234,6 @@ if (isset($_GET['tag'])) {
         <div class="container">
           <div class="card">
             <div class="card-header">
-              <!-- Button Upload files -->
-              <!-- <button class="btn" data-toggle="modal" data-target="#myModal">
-                <i class="fas fa-plus"></i>
-              </button> -->
-
-              <!-- Modal Form Upload files -->
-
-
-
 
               <div class="d-flex justify-content-between align-items-center">
                 <form method="post" id="dataUpload" enctype="multipart/form-data">
@@ -246,14 +249,20 @@ if (isset($_GET['tag'])) {
                   </datalist>
                 </form>
 
+                <div class="d-flex align-items-center">
+                  <div class="mr-3">
+                    <a href="javascrpit:void(0)" class="text-decoration-none text-black" id="deleteMany">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                  </div>
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input name="table_search" class="form-control float-right" placeholder="Search" id="search" type="text">
 
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input name="table_search" class="form-control float-right" placeholder="Search" id="search" type="text">
-
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                      <i class="fas fa-search"></i>
-                    </button>
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -261,11 +270,11 @@ if (isset($_GET['tag'])) {
             </div>
             <!-- /.card-header -->
 
-            <div class="card-body table-responsive p-0">
-              <table class="sortable table text-nowrap" id="files">
+            <div class="card-body table-responsive p-0" style="height: 79vh;">
+              <table class="table table-head-fixed text-nowrap" id="files">
                 <thead>
                   <tr>
-                    <th></th>
+                    <th class="no-sort"></th>
                     <th>Nama File</th>
                     <th>Ukuran</th>
                     <th>Date</th>
@@ -285,12 +294,6 @@ if (isset($_GET['tag'])) {
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
 
@@ -304,7 +307,7 @@ if (isset($_GET['tag'])) {
   <script src="<?= base_url() ?>assets/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
-    $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button);
   </script>
   <!-- Bootstrap 4 -->
   <script src="<?= base_url() ?>assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -350,7 +353,6 @@ if (isset($_GET['tag'])) {
   <!-- knob -->
   <script type="text/javascript">
     /* jQueryKnob */
-
     $('#knob').knob({
       displayInput: false
     });

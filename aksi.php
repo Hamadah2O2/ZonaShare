@@ -55,7 +55,7 @@ if (isset($_GET['act'])) {
       <script>
         toastr.error("<?= $gagal ?> File gagal di tambahkan");
       </script>
-    <?php
+      <?php
     }
   } else
 
@@ -64,19 +64,21 @@ if (isset($_GET['act'])) {
     header("location: ./");
   } else
 
-  if ($_SERVER["REQUEST_METHOD"] == "GET" && $act == "hapus") {
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && $act == "hapus") {
     //hapus file
-    $id = $_GET['id'];
-    $stm = $c->query("SELECT * FROM files WHERE id='$id'");
-    $data = $stm->fetch_array();
+    $id = $_POST['id'];
+    foreach ($id as $id) {
+      $stm = $c->query("SELECT * FROM files WHERE id='$id'");
+      $data = $stm->fetch_array();
 
-    if ($data['pemilik'] == $user) {
-      unlink("cloud/" . $data['nama']);
-      $stm = $c->query("DELETE FROM files WHERE id='$id'"); ?>
-      <script>
-        toastr.warning("File <?= $data['nama'] ?> berhasil dihapus");
-      </script>
+      if ($data['pemilik'] == $user) {
+        unlink("cloud/" . $data['nama']);
+        $stm = $c->query("DELETE FROM files WHERE id='$id'"); ?>
+        <script>
+          toastr.warning("File <?= $data['nama'] ?> berhasil dihapus");
+        </script>
 <?php
+      }
     }
   } else {
     // header("location: ./");

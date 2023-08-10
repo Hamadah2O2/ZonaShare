@@ -7,8 +7,10 @@ if (isset($_SESSION['user'])) {
   $user = $_SESSION['user'];
   $nama = $_SESSION['nama'];
 } else {
-  header("location: ../login");
+  header("location: ../login"); 
 }
+
+
 
 if (isset($_POST['search']) && $_POST['search'] != "") {
   $s = $_POST['search'];
@@ -17,9 +19,9 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
 } else {
   $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user'");
 } ?>
+    <form method="post" id="dataFile">
 <?php
 while ($data = $stm->fetch_array()) { ?>
-    <form method="post" id="dataFile">
       <tr>
         <td>
           <input class="text-center" type="checkbox" name="pilih[]" value="<?= $data[0] ?>">

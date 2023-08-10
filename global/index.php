@@ -4,8 +4,6 @@ include '../koneksi.php';
 include '../funcvar.php';
 session_start();
 
-$fl = new file;
-
 if (isset($_SESSION['user'])) {
   $user = $_SESSION['user'];
   $nama = $_SESSION['nama'];
@@ -31,37 +29,40 @@ if (isset($_GET['tag'])) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../assets/adminlte/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <!-- <link rel="stylesheet" href="../assets/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> -->
+  <!-- <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> -->
   <!-- iCheck -->
-  <link rel="stylesheet" href="../assets/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <!-- <link rel="stylesheet" href="../assets/adminlte/plugins/jqvmap/jqvmap.min.css"> -->
+  <!-- <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/jqvmap/jqvmap.min.css"> -->
   <!-- Theme style -->
-  <link rel="stylesheet" href="../assets/adminlte/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../assets/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
-  <!-- <link rel="stylesheet" href="../assets/adminlte/plugins/daterangepicker/daterangepicker.css"> -->
+  <!-- <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/daterangepicker/daterangepicker.css"> -->
   <!-- summernote -->
-  <!-- <link rel="stylesheet" href="../assets/adminlte/plugins/summernote/summernote-bs4.min.css"> -->
-  <!-- dataTable -->
-  <!-- <link rel="stylesheet" href="../assets/adminlte/plugins/datatables-bs4/css/dataTable.bootstrap4.css"> -->
+  <!-- <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/summernote/summernote-bs4.min.css"> -->
 
   <!-- Bootstrap5 -->
-  <link rel="stylesheet" href="../assets/css/bootstrap5.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/css/bootstrap5.css">
 
   <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="../assets/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
-  <link rel="stylesheet" href="../assets/adminlte/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/toastr/toastr.min.css">
 
-  <!-- dropzone -->
-  <link href="../assets/adminlte/plugins/dropzone/dropzone.css" rel="stylesheet">
-  <script src="../assets/adminlte/plugins/dropzone/dropzone.js"></script>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+  <!-- SORTABLE -->
+  <link href="<?= base_url() ?>assets/sortable-2.2.0/sortable.css" rel="stylesheet" />
+  <script src="<?= base_url() ?>assets/sortable-2.2.0/sortable.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
@@ -69,7 +70,7 @@ if (isset($_GET['tag'])) {
 
     <!-- Preloader -->
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="../assets/adminlte/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+      <img class="animation__shake" src="<?= base_url() ?>assets/adminlte/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div> -->
 
     <!-- Navbar -->
@@ -80,12 +81,13 @@ if (isset($_GET['tag'])) {
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="../" class="nav-link">My Files</a>
+          <a href="<?= base_url() ?>" class="nav-link">My Files</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Shared</a>
         </li>
       </ul>
+
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
@@ -111,91 +113,6 @@ if (isset($_GET['tag'])) {
           </div>
         </li>
 
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-comments"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../assets/adminlte/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../assets/adminlte/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-              <div class="media">
-                <img src="../assets/adminlte/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div>
-              <!-- Message End -->
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-          </div>
-        </li>
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
@@ -211,31 +128,36 @@ if (isset($_GET['tag'])) {
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="../" class="brand-link">
-        <img src="../assets/img/logokominfo.png" alt="Logo" class="brand-image img-circle" style="opacity: .8">
+      <a href="index3.html" class="brand-link">
+        <img src="<?= base_url() ?>assets/img/logokominfo.png" alt="Logo" class="brand-image img-circle" style="opacity: .8">
         <span class="brand-text font-weight-light"><b>OPEN</b>CLOUD</span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
+        <!-- Storage Limit -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-          </div>
-          <div class="info">
+          <div class="text-white container-fluid d-flex" id="storage">
+            <input type="text" id="knob" value="0" data-width="40" data-height="40" data-thickness="0.65" data-fgColor="#007bff" data-readonly="true" style="width: 40px;">
+            <div class="d-flex flex-column ml-3 w-100">
+              <span style="font-size: 15px;" class="font-weight-light">MyStorage:</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2 mb-auto">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <ul class="nav nav-pills nav-sidebar flex-column nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <!-- <li class="nav-header mt-0">OpenCloud</li> -->
             <li class="nav-item">
-              <a href="../" class="nav-link">
+              <a href="<?= base_url() ?>" class="nav-link">
                 <i class="nav-icon fas fa-user-secret"></i>
                 <p>
                   My Files
@@ -254,7 +176,7 @@ if (isset($_GET['tag'])) {
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-hashtag"></i>
                 <p>
-                  Tags
+                  My Tags
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
@@ -271,15 +193,15 @@ if (isset($_GET['tag'])) {
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
+      </div>
 
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel pb-3 d-flex position-absolute bottom-0">
-          <div class="image">
-            <img src="../assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
-          </div>
+      <!-- Sidebar user panel (optional) -->
+      <div class="sidebar-custom d-flex align-items-center">
+        <div class="image mt-2">
+          <img src="<?= base_url() ?>assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="infoo">
+          <a href="#" class="d-block text-white">Alexander Pierce</a>
         </div>
       </div>
       <!-- /.sidebar -->
@@ -378,75 +300,86 @@ if (isset($_GET['tag'])) {
   <!-- ../wrapper -->
 
   <!-- jQuery -->
-  <script src="../assets/adminlte/plugins/jquery/jquery.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
-  <script src="../assets/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>
   <!-- Bootstrap 4 -->
-  <script src="../assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
-  <!-- <script src="../assets/adminlte/plugins/chart.js/Chart.min.js"></script> -->
+  <!-- <script src="<?= base_url() ?>assets/adminlte/plugins/chart.js/Chart.min.js"></script> -->
   <!-- Sparkline -->
-  <!-- <script src="../assets/adminlte/plugins/sparklines/sparkline.js"></script> -->
+  <!-- <script src="<?= base_url() ?>assets/adminlte/plugins/sparklines/sparkline.js"></script> -->
   <!-- JQVMap -->
-  <script src="../assets/adminlte/plugins/jqvmap/jquery.vmap.min.js"></script>
-  <script src="../assets/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
   <!-- jQuery Knob Chart -->
-  <script src="../assets/adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
   <!-- daterangepicker -->
-  <!-- <script src="../assets/adminlte/plugins/moment/moment.min.js"></script> -->
-  <!-- <script src="../assets/adminlte/plugins/daterangepicker/daterangepicker.js"></script> -->
+  <!-- <script src="<?= base_url() ?>assets/adminlte/plugins/moment/moment.min.js"></script> -->
+  <!-- <script src="<?= base_url() ?>assets/adminlte/plugins/daterangepicker/daterangepicker.js"></script> -->
   <!-- Tempusdominus Bootstrap 4 -->
-  <script src="../assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
   <!-- Summernote -->
-  <!-- <script src="../assets/adminlte/plugins/summernote/summernote-bs4.min.js"></script> -->
+  <!-- <script src="<?= base_url() ?>assets/adminlte/plugins/summernote/summernote-bs4.min.js"></script> -->
   <!-- overlayScrollbars -->
-  <script src="../assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="../assets/adminlte/js/adminlte.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/js/adminlte.js"></script>
 
   <!-- SweetAlert2 -->
-  <script src="../assets/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
   <!-- Toastr -->
-  <script src="../assets/adminlte/plugins/toastr/toastr.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/toastr/toastr.min.js"></script>
 
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-  <!-- dropzone && tag search -->
+  <!-- OpenCloud js -->
+  <script type="text/javascript" src="<?= base_url() ?>assets/js/opencloud.js"></script>
+
+  <!-- knob -->
   <script type="text/javascript">
-    $(document).ready(function() {
-      load_data();
+    /* jQueryKnob */
 
-      function load_data(tag_search) {
+    $('#knob').knob({
+      displayInput: false
+    });
+
+    $("#deleteMany").click(function() {
+      if (confirm('apakah kamu yakin menghapus file ini?') == true) {
+        var id = $('input[name="pilih[]"]:checked').map(function() {
+          return $(this).val();
+        }).get();
         $.ajax({
-          method: "POST",
-          url: "./tampil_tagar.php",
+          url: './aksi.php?act=hapus',
+          method: 'POST',
           data: {
-            tag_search: tag_search
+            id: id
           },
-          success: function(hasil) {
-            $('#datags').html(hasil);
+          success: function(h) {
+            $('#pesan').html(h);
+            load_files();
           }
         });
       }
-
-      $('#tag_search').keyup(function() {
-        var tag_search = $("#tag_search").val();
-        load_data(tag_search);
-      });
     });
+  </script>`
 
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone(".dropzone", {
-      autoProcessQueue: false
-    });
+  <!-- Pesan Tampil -->
+  <div class="" id="pesan">
 
-    $('#uploadFile').click(function() {
-      myDropzone.processQueue();
-    });
-  </script>
+  </div>
 </body>
 
 </html>
