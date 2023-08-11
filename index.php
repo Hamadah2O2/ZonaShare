@@ -266,9 +266,19 @@ if (isset($_GET['tag'])) {
 
                 <tr>
                   <td><input class="d-none" type="text" name="asdesc" id="asdesc" value="desc"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
                   <td><input class="d-none" type="text" name="sortby" id="sortby" value="date"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
 
                 <thead>

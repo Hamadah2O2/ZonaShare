@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `files` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `globaly` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Dumping data for table dkisshare_cirkab.files: ~4 rows (approximately)
+-- Dumping data for table dkisshare_cirkab.files: ~26 rows (approximately)
 DELETE FROM `files`;
 
 -- Dumping structure for table dkisshare_cirkab.users
@@ -42,13 +42,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `jabatan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batas_penyimpanan` bigint(20) NOT NULL,
   PRIMARY KEY (`UID`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table dkisshare_cirkab.users: ~2 rows (approximately)
+-- Dumping data for table dkisshare_cirkab.users: ~15 rows (approximately)
 DELETE FROM `users`;
-
+INSERT INTO `users` (`UID`, `username`, `password`, `name`, `jabatan`, `batas_penyimpanan`) VALUES
+	('1241141gzsn2', 'haidar', '321', 'Rozaan', 'Programer Jaman Now', 5368709120),
+	('24124128y812', 'rama', '123', 'Mas Rama', 'Staf Pelaksana', 5368709120),
+	
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
