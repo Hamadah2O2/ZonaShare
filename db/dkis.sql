@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 INSERT INTO `users` (`UID`, `username`, `password`, `name`, `jabatan`, `batas_penyimpanan`) VALUES
 	('1241141gzsn2', 'haidar', '321', 'Rozaan', 'Programer Jaman Now', 5368709120),
-	('24124128y812', 'rama', '123', 'Mas Rama', 'Staf Pelaksana', 5368709120),
+	('24124128y812', 'rama', '123', 'Mas Rama', 'Staf Pelaksana', 5368709120)
 	
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
