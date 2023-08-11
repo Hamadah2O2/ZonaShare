@@ -11,12 +11,15 @@ Masukin ke htdocs -> impor database -> kelar :)
 
 Sebagai tambahan, untuk bagian funcvar.php ubah baris ke 37 menjadi:
 ```php
-$bu = "http://url.website.mu"; 
+$bu = "http://url.website.mu/"; 
 ```
-atau
+atau:
 ```php
-$bu = "http://localhost/folder_dkis_share"; 
+$bu = "http://localhost/folder_dkis_share/"; 
 ```
+### Keterangan:
+Itu merupakan base url atau link host yang digunakan.
+Rada abal abal tapi gapapa. 
 
 Untuk sekarang hanya user hanya bisa di atur di database jadi sementara hanya ada 2 user yang bisa digunakan:
 ```
