@@ -9,6 +9,15 @@ Project di desain dan dibuat atas permintaan karyawan tempat PKL kami yang membu
 # Instalasi
 Masukin ke htdocs -> impor database -> kelar :)
 
+Sebagai tambahan, untuk bagian funcvar.php ubah baris ke 37 menjadi:
+```php
+$bu = "http://url.website.mu"; 
+```
+atau
+```php
+$bu = "http://localhost/folder_dkis_share"; 
+```
+
 Untuk sekarang hanya user hanya bisa di atur di database jadi sementara hanya ada 2 user yang bisa digunakan:
 ```
 // User 1
@@ -21,6 +30,7 @@ Pass : 321
 
 # Upcoming
 - Admin sebagai pengelola user
+- AutoInstall
 - Folder (Kayak nya nggak dulu)
 - Beberapa fitur tambahan
 

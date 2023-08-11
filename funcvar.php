@@ -1,31 +1,31 @@
 <?php
-
-class scan {
-  function scFile($dir)
-  {
-    $sortedData = array();
-    foreach (scandir($dir) as $file) {
-      if (is_file($dir . '/' . $file))
-        array_push($sortedData, $file);
+// Konsep lama
+// class scan {
+//   function scFile($dir)
+//   {
+//     $sortedData = array();
+//     foreach (scandir($dir) as $file) {
+//       if (is_file($dir . '/' . $file))
+//         array_push($sortedData, $file);
         
-    }
-    // menghilangkan titik
-    $sortedData = array_diff($sortedData, [".", ".."]);  
-    return $sortedData;
-  }
-  function scDir($dir)
-  {
-    $sortedData = array();
-    foreach (scandir($dir) as $file) {
-      if (is_dir($dir . '/' . $file))
-        array_push($sortedData, $file);
+//     }
+//     // menghilangkan titik
+//     $sortedData = array_diff($sortedData, [".", ".."]);  
+//     return $sortedData;
+//   }
+//   function scDir($dir)
+//   {
+//     $sortedData = array();
+//     foreach (scandir($dir) as $file) {
+//       if (is_dir($dir . '/' . $file))
+//         array_push($sortedData, $file);
         
-    }
-    // menghilangkan titik
-    $sortedData = array_diff($sortedData, [".", ".."]);  
-    return $sortedData;
-  }
-}
+//     }
+//     // menghilangkan titik
+//     $sortedData = array_diff($sortedData, [".", ".."]);  
+//     return $sortedData;
+//   }
+// }
 
 function size_format($bytes, $decimals = 2){
   $size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
@@ -40,13 +40,5 @@ function base_url(){
   return $bu;
 }
 
-class file {
-  function tambah(){
-    
-  }
-
-}
-
-$user_limit = 5000000;
 $perusahaan = "TI";
 ?>
