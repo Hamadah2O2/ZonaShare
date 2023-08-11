@@ -31,7 +31,7 @@ function load_input_tag() {
   });
 }
 
-function load_files(search, col = "date", asdesc = "ASC") {
+function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val()) {
   search = $("#search").val();
   $.ajax({
     method: "POST",
@@ -42,7 +42,7 @@ function load_files(search, col = "date", asdesc = "ASC") {
       asdesc: asdesc
     },
     success: function (hasil) {
-      $('#listFile').html(hasil);
+      $('#files').html(hasil);
       // table = $('#files').DataTable({
       //   "paging": false,
       //   "lengthChange": false,
@@ -110,7 +110,7 @@ function deleteFile(id) {
 }
 //deleteMany
 $("#deleteMany").click(function() {
-  if (confirm('apakah kamu yakin menghapus file ini?') == true) {
+  if (confirm('apakah kamu yakin menghapus beberapa file ini?') == true) {
     var id = $('input[name="pilih[]"]:checked').map(function() {
       return $(this).val();
     }).get();

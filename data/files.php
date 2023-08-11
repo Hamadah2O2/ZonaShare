@@ -7,24 +7,41 @@ if (isset($_SESSION['user'])) {
   $user = $_SESSION['user'];
   $nama = $_SESSION['nama'];
 } else {
-  header("location: ../login"); 
+  header("location: ../login");
 }
 
-
+$sortby = $_POST['col'];
+$asdesc = $_POST['asdesc'];
 
 if (isset($_POST['search']) && $_POST['search'] != "") {
   $s = $_POST['search'];
   $s = strtolower($s);
-  $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%')");
+  $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
 } else {
-  $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user'");
+  $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' ORDER BY $sortby $asdesc");
 } ?>
-    <form method="post" id="dataFile">
-<?php
-while ($data = $stm->fetch_array()) { ?>
+
+<div class="d-none">
+  <input type="text" name="asdesc" id="asdesc" value="<?= $asdesc ?>">
+  <input type="text" name="sortby" id="sortby" value="<?= $sortby ?>">
+</div>
+<form method="post" id="dataFile">
+  <thead>
+    <tr>
+      <th></th>
+      <th onclick="load_files('', 'nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="load_files('', 'ukuran', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Ukuran <i class="fas fa-sort<?= ($sortby == 'ukuran') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="load_files('', 'date', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Date <i class="fas fa-sort<?= ($sortby == 'date') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="load_files('', 'tag', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')" class="text-center">Tag <i class="fas fa-sort<?= ($sortby == 'tag') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th class="text-center">Aksi </th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    while ($data = $stm->fetch_array()) { ?>
       <tr>
         <td>
-          <input class="text-center" type="checkbox" name="pilih[]" value="<?= $data[0] ?>">
+          <input class="text-center" type="checkbox" name="pilih[]" value="<?= $data[0] ?>" onclick="showHideBtn()">
         </td>
         <td>
           <?= $data['nama'] ?>
@@ -45,6 +62,7 @@ while ($data = $stm->fetch_array()) { ?>
         </td>
       </tr>
     <?php
-  }
+    }
     ?>
-    </form>
+  </tbody>
+</form>

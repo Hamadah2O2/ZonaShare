@@ -7,6 +7,7 @@ session_start();
 if (isset($_SESSION['user'])) {
   $user = $_SESSION['user'];
   $nama = $_SESSION['nama'];
+  $jabatan = $_SESSION['jabatan'];
 } else {
   header("location: ./login");
 }
@@ -63,6 +64,10 @@ if (isset($_GET['tag'])) {
   <!-- SORTABLE -->
   <link href="./assets/sortable-2.2.0/sortable.css" rel="stylesheet" />
   <script src="./assets/sortable-2.2.0/sortable.js"></script>
+
+  <!-- Costom Style -->
+  <link rel="stylesheet" href="<?= base_url() ?>assets/css/customStyle.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed overflow-hidden">
@@ -96,44 +101,25 @@ if (isset($_GET['tag'])) {
             <i class="fas fa-expand-arrows-alt"></i>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-controlsidebar-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </li>
         <li class="nav-item dropdown user-menu">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-            <img src="<?= base_url() ?>assets/adminlte/img/user1-128x128.jpg" class="user-image img-circle elevation-2" alt="User Image">
+            <img src="<?= base_url() ?>assets/adminlte/img/noimage.jpg" class="user-image img-circle elevation-2" alt="User Image">
           </a>
           <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->
             <li class="user-header bg-primary">
-              <img src="<?= base_url() ?>assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              <img src="<?= base_url() ?>assets/adminlte/img/noimage.jpg" class="img-circle elevation-2" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+                <?= $nama ?>
+                <small>- <?= $jabatan ?> -</small>
               </p>
             </li>
-            <!-- Menu Body -->
-            <li class="user-body">
-              <div class="row">
-                <div class="col-4 text-center">
-                  <a href="#">Followers</a>
-                </div>
-                <div class="col-4 text-center">
-                  <a href="#">Sales</a>
-                </div>
-                <div class="col-4 text-center">
-                  <a href="#">Friends</a>
-                </div>
-              </div>
-              <!-- /.row -->
-            </li>
+
             <!-- Menu Footer-->
             <li class="user-footer">
-              <a href="#" class="btn btn-default btn-flat">Profile</a>
-              <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+              <a href="<?= base_url() ?>profiles" class="btn btn-default btn-flat">Profile</a>
+              <a href="<?= base_url() ?>logout" class="btn btn-default btn-flat float-right">Logout</a>
             </li>
           </ul>
         </li>
@@ -210,14 +196,19 @@ if (isset($_GET['tag'])) {
       </div>
 
       <!-- Sidebar user panel (optional) -->
-      <div class="sidebar-custom d-flex align-items-center">
-        <div class="image mt-2">
-          <img src="<?= base_url() ?>assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="infoo">
-          <a href="#" class="d-block text-white">Alexander Pierce</a>
-        </div>
+      <!-- <div class="sidebar-custom dropup">
+        <button href="#" class="btn p-0 d-flex align-items-center dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+          <div class="image mt-2">
+            <img src="<?= base_url() ?>assets/adminlte/img/noimage.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="infoo">
+            <a href="#" class="d-block text-white">Alexander Pierce</a>
+          </div>
+        </button>
       </div>
+      <div class="dropdown-menu">
+        <a href="" class="dropdown-item">hai</a>
+      </div> -->
       <!-- /.sidebar -->
     </aside>
 
@@ -237,9 +228,9 @@ if (isset($_GET['tag'])) {
 
               <div class="d-flex justify-content-between align-items-center">
                 <form method="post" id="dataUpload" enctype="multipart/form-data">
-                  <div class="input-group-bs5 me-auto" style="width: 90%;">
+                  <div class="input-group-bs5 me-auto" style="width: 95%;">
                     <input type="file" class="form-control-bs5" name="file[]" id="" multiple required>
-                    <div style="width: 40%;">
+                    <div style="width: 30%;">
                       <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id="" placeholder="Tagar" autocomplete="off">
                     </div>
                     <input type="submit" class="btn btn-primary" value="Upload">
@@ -251,7 +242,7 @@ if (isset($_GET['tag'])) {
 
                 <div class="d-flex align-items-center">
                   <div class="mr-3">
-                    <a href="javascrpit:void(0)" class="text-decoration-none text-black" id="deleteMany">
+                    <a href="#" class="btn text-bg-danger" id="deleteMany">
                       <i class="fas fa-trash-alt"></i>
                     </a>
                   </div>
@@ -272,6 +263,14 @@ if (isset($_GET['tag'])) {
 
             <div class="card-body table-responsive p-0" style="height: 79vh;">
               <table class="table table-head-fixed text-nowrap" id="files">
+
+                <tr>
+                  <td><input class="d-none" type="text" name="asdesc" id="asdesc" value="desc"></td>
+                </tr>
+                <tr>
+                  <td><input class="d-none" type="text" name="sortby" id="sortby" value="date"></td>
+                </tr>
+
                 <thead>
                   <tr>
                     <th class="no-sort"></th>

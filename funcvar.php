@@ -34,8 +34,8 @@ function size_format($bytes, $decimals = 2){
 }
 
 function base_url(){
-  // $bu = "http://xamphost/dkis_share_konsep_4/";
-  $bu = "http://10.5.60.160:8080/";
+  $bu = "http://xamphost/dkis_share_konsep_4/";
+  // $bu = "http://10.5.60.32:8080/";
   // $bu = "http://192.168.42.28:8080/";
   return $bu;
 }

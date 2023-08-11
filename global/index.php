@@ -195,7 +195,7 @@ if (isset($_GET['tag'])) {
         <!-- /.sidebar-menu -->
       </div>
 
-      <!-- Sidebar user panel (optional) -->
+      <!-- Sidebar user panel (optional)
       <div class="sidebar-custom d-flex align-items-center">
         <div class="image mt-2">
           <img src="<?= base_url() ?>assets/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -203,7 +203,7 @@ if (isset($_GET['tag'])) {
         <div class="infoo">
           <a href="#" class="d-block text-white">Alexander Pierce</a>
         </div>
-      </div>
+      </div> -->
       <!-- /.sidebar -->
     </aside>
 

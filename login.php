@@ -16,6 +16,7 @@ if (isset($_POST['submit'])) {
     $d = $do->fetch_array();
     $_SESSION['user'] = $d['username'];
     $_SESSION['nama'] = $d['name'];
+    $_SESSION['jabatan'] = $d['jabatan'];
     header("location: ./");
   } else {
     $gagal = 1;

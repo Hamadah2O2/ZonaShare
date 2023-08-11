@@ -1,0 +1,7 @@
+/* #deleteMany {
+  display: none;
+}
+
+input[name='pilih[]']:checked ~ #deleteMany {
+  display:block;
+} */
