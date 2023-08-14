@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>Open</b>Cloud</a>
+      <a href="#" class="h1"><b>Zona</b>Share</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="row justify-content-end">
           <div class="col-4">
-            <button type="submit" name="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" name="submit" class="btn btn-primary btn-block">Log In</button>
           </div>
           <!-- /.col -->
         </div>

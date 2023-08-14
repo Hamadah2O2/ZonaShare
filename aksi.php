@@ -77,7 +77,7 @@ if (isset($_GET['act'])) {
         <script>
           toastr.warning("File <?= $data['nama'] ?> berhasil dihapus");
         </script>
-<?php
+        <?php
       }
     }
   } else {
@@ -85,8 +85,8 @@ if (isset($_GET['act'])) {
   }
 } else 
 
-if (isset($_GET['shareit']) && isset($_GET['id'])) {
-  $id = $_GET['id'];
+if (isset($_GET['shareit']) && isset($_POST['id'])) {
+  $id = $_POST['id'];
   $stm = $c->query("SELECT * FROM files WHERE id = '$id'");
 
   if ($stm->num_rows >= 1) {
@@ -96,19 +96,25 @@ if (isset($_GET['shareit']) && isset($_GET['id'])) {
       switch ($global) {
         case 0:
           $stm = $c->query("UPDATE files SET globaly = 1 WHERE id = '$id'");
-          $stm;
+          $stm; ?>
+          <script>
+            toastr.success("<?= $data['nama'] ?> File berhasil di bagikan");
+          </script>
+          <?php
           break;
         case 1:
           $stm = $c->query("UPDATE files SET globaly = 0 WHERE id = '$id'");
-          $stm;
+          $stm; ?>
+          <script>
+            toastr.info("<?= $data['nama'] ?> File berhenti di bagikan");
+          </script>
+          <?php
           break;
         default:
           $none;
           break;
       }
-      header("location: ./");
     } else {
-      header("location: ./");
     }
   } else {
     header("location: ./");

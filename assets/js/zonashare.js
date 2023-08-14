@@ -5,6 +5,11 @@ function loadall() {
   load_input_tag();
 }
 
+//refresh button
+$(".refresh").click(function () {
+  loadall();
+});
+
 function load_data(tag_search) {
   $.ajax({
     method: "POST",
@@ -31,7 +36,7 @@ function load_input_tag() {
   });
 }
 
-function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val()) {
+function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val(), tag = $("#tagSelected").val()) {
   search = $("#search").val();
   $.ajax({
     method: "POST",
@@ -39,21 +44,20 @@ function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val(
     data: {
       search: search,
       col: col,
-      asdesc: asdesc
+      asdesc: asdesc,
+      tag: tag
     },
     success: function (hasil) {
       $('#files').html(hasil);
-      // table = $('#files').DataTable({
-      //   "paging": false,
-      //   "lengthChange": false,
-      //   "searching": false,
-      //   "ordering": true,
-      //   "info": false,
-      //   "autoWidth": false,
-      //   "responsive": false,
-      // }).ajax.reload();
     }
   });
+}
+// tag
+function useTag(tag) {
+  load_files(undefined, undefined, undefined, tag);
+}
+function deleteTag() {
+  load_files(undefined, undefined, undefined, "");
 }
 
 function load_storage() {
@@ -74,7 +78,7 @@ $(document).ready(function () {
 });
 
 // CRUD
-//upload
+// upload
 $('#dataUpload').on('submit', function (e) {
   e.preventDefault();
   var formData = new FormData(this);
@@ -92,7 +96,7 @@ $('#dataUpload').on('submit', function (e) {
   });
 });
 
-//delete
+// delete
 function deleteFile(id) {
   if (confirm('apakah kamu yakin menghapus file ini?') == true) {
     $.ajax({
@@ -108,10 +112,11 @@ function deleteFile(id) {
     });
   }
 }
-//deleteMany
-$("#deleteMany").click(function() {
+
+// deleteMany
+$("#deleteMany").click(function () {
   if (confirm('apakah kamu yakin menghapus beberapa file ini?') == true) {
-    var id = $('input[name="pilih[]"]:checked').map(function() {
+    var id = $('input[name="pilih[]"]:checked').map(function () {
       return $(this).val();
     }).get();
     $.ajax({
@@ -120,13 +125,42 @@ $("#deleteMany").click(function() {
       data: {
         id: id
       },
-      success: function(h) {
+      success: function (h) {
         $('#pesan').html(h);
         load_files();
       }
     });
   }
 });
+
+// share
+function share(nama, id) {
+  $.ajax({
+    url: './aksi.php?shareit=',
+    method: 'POST',
+    data: {
+      "id": id
+    },
+    success: function (h) {
+      $('#pesan').html(h);
+      loadall();
+    }
+  });
+}
+function stopShare(nama, id) {
+  $.ajax({
+    url: './aksi.php?shareit=',
+    method: 'POST',
+    data: {
+      "id": id
+    },
+    success: function (h) {
+      $('#pesan').html(h);
+      loadall();
+    }
+  });
+}
+
 
 // SEARCH
 $('#tag_search').keyup(function () {
@@ -135,12 +169,8 @@ $('#tag_search').keyup(function () {
 });
 
 $('#search').keyup(function () {
-  var search = $("#search").val();
-  load_files(search);
+  load_files();
 });
-
-//CRUD function
-
 
 // toastr
 function showSuccess(pesan) {

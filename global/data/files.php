@@ -1,6 +1,6 @@
 <?php
-include '../koneksi.php';
-include '../funcvar.php';
+include '../../koneksi.php';
+include '../../funcvar.php';
 session_start();
 
 if (isset($_SESSION['user'])) {
@@ -12,42 +12,22 @@ if (isset($_SESSION['user'])) {
 
 $sortby = $_POST['col'];
 $asdesc = $_POST['asdesc'];
-$tag = $_POST['tag'];
 
 if (isset($_POST['search']) && $_POST['search'] != "") {
   $s = $_POST['search'];
   $s = strtolower($s);
-  if ($tag != "") {
-    $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' AND tag LIKE '$tag' AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
-  } else {
-    $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
-  }
+  $stm = $c->query("SELECT * FROM files WHERE globaly = 1 AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
 } else {
-  if ($tag != "") {
-    $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' AND tag LIKE '$tag' ORDER BY $sortby $asdesc");
-  } else {
-    $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' ORDER BY $sortby $asdesc");
-  }
+  $stm = $c->query("SELECT * FROM files WHERE globaly = 1 ORDER BY $sortby $asdesc");
 } ?>
 
 <div class="d-none">
   <input type="text" name="asdesc" id="asdesc" value="<?= $asdesc ?>">
   <input type="text" name="sortby" id="sortby" value="<?= $sortby ?>">
-  <input class="d-none" type="text" name="tagSelected" id="tagSelected" value="<?= $tag ?>">
 </div>
 <form method="post" id="dataFile">
-  <?php
-    if ($tag != "") { ?>
-      <tr>
-        <td class="border-1 text-center" colspan="6" onclick="deleteTag()">
-          <?= $tag ?> <i class="fa fa-close"></i>
-        </td>
-      </tr>
-    <?php }
-  ?>
   <thead>
     <tr>
-      <th></th>
       <th onclick="load_files('', 'nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
       <th onclick="load_files('', 'ukuran', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Ukuran <i class="fas fa-sort<?= ($sortby == 'ukuran') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
       <th onclick="load_files('', 'date', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Date <i class="fas fa-sort<?= ($sortby == 'date') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
@@ -60,9 +40,6 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
     while ($data = $stm->fetch_array()) { ?>
       <tr>
         <td>
-          <input class="text-center" type="checkbox" name="pilih[]" value="<?= $data[0] ?>" onclick="showHideBtn()">
-        </td>
-        <td>
           <?= $data['nama'] ?>
         </td>
         <td><?= size_format($data['ukuran']) ?></td>
@@ -71,13 +48,6 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
         <td class="text-center">
           <a href="./download?id=<?= $data[0] ?>" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Download">
             <i class="fas fa-arrow-down" style="font-size: 15px;"></i>
-          </a>
-          <button class="btn btn-sm btn-danger" onclick="deleteFile(<?= $data[0] ?>)" data-toggle="tooltip" title="Hapus">
-            <i class="fas fa-trash " style="font-size: 15px;"></i>
-          </button>
-          <button class="btn btn-sm <?= ($data['globaly'] >= 1) ? "btn-success" : "btn-secondary"; ?>" onclick="<?= ($data['globaly'] == 1) ? 'stopShare' : 'share' ?>('<?= $data['nama'] ?>', <?= $data[0] ?>)" data-toggle="tooltip" title="Hapus">
-            <i class="fas fa-share" style="font-size: 15px;"></i>
-          </button>
           </a>
         </td>
       </tr>
