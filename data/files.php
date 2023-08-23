@@ -39,7 +39,7 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
   <?php
     if ($tag != "") { ?>
       <tr>
-        <td class="border-1 text-center" colspan="6" onclick="deleteTag()">
+        <td class="border-1 text-center" colspan="6" onclick="removeTag()">
           <?= $tag ?> <i class="fa fa-close"></i>
         </td>
       </tr>
@@ -47,20 +47,22 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
   ?>
   <thead>
     <tr>
-      <th></th>
-      <th onclick="load_files('', 'nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
-      <th onclick="load_files('', 'ukuran', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Ukuran <i class="fas fa-sort<?= ($sortby == 'ukuran') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
-      <th onclick="load_files('', 'date', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Date <i class="fas fa-sort<?= ($sortby == 'date') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
-      <th onclick="load_files('', 'tag', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')" class="text-center">Tag <i class="fas fa-sort<?= ($sortby == 'tag') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th>
+        <input type="checkbox" class="select-all-checkbox" value="1" />
+      </th>
+      <th onclick="sort('nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="sort('ukuran', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Ukuran <i class="fas fa-sort<?= ($sortby == 'ukuran') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="sort('date', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Date <i class="fas fa-sort<?= ($sortby == 'date') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="sort('tag', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')" class="text-center">Tag <i class="fas fa-sort<?= ($sortby == 'tag') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
       <th class="text-center">Aksi </th>
     </tr>
   </thead>
   <tbody>
     <?php
     while ($data = $stm->fetch_array()) { ?>
-      <tr>
+      <tr class="rowx">
         <td>
-          <input class="text-center" type="checkbox" name="pilih[]" value="<?= $data[0] ?>" onclick="showHideBtn()">
+          <input class="text-center select-checkbox" type="checkbox" name="pilih[]" value="<?= $data[0] ?>">
         </td>
         <td>
           <?= $data['nama'] ?>

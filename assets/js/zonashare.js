@@ -49,17 +49,30 @@ function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val(
     },
     success: function (hasil) {
       $('#files').html(hasil);
+      setTimeout(() => { 
+        $(".select-all-checkbox").multiselectCheckbox({
+          checkboxes: ".tablex .select-checkbox",
+          sync: ".tablex .rowx"
+        });
+      }, 1000);
     }
   });
 }
+
+// SORTING
+function sort(col, asdesc) {
+  load_files(undefined, col, asdesc, undefined);
+}
+ 
 // tag
 function useTag(tag) {
   load_files(undefined, undefined, undefined, tag);
 }
-function deleteTag() {
+function removeTag() {
   load_files(undefined, undefined, undefined, "");
 }
 
+// Storage sisa penyimpanan
 function load_storage() {
   $.ajax({
     method: "GET",
@@ -75,6 +88,9 @@ function load_storage() {
 
 $(document).ready(function () {
   loadall();
+  // setInterval(function(){
+  //   loadall();
+  // }, 1000);
 });
 
 // CRUD
@@ -83,7 +99,7 @@ $('#dataUpload').on('submit', function (e) {
   e.preventDefault();
   var formData = new FormData(this);
   $.ajax({
-    url: './aksi.php?act=tambah',
+    url: './aksi.php?tambah',
     method: 'POST',
     data: formData,
     contentType: false,
@@ -100,7 +116,7 @@ $('#dataUpload').on('submit', function (e) {
 function deleteFile(id) {
   if (confirm('apakah kamu yakin menghapus file ini?') == true) {
     $.ajax({
-      url: './aksi.php?act=hapus',
+      url: './aksi.php?hapus',
       method: 'POST',
       data: {
         "id[]": id
@@ -120,7 +136,7 @@ $("#deleteMany").click(function () {
       return $(this).val();
     }).get();
     $.ajax({
-      url: './aksi.php?act=hapus',
+      url: './aksi.php?hapus',
       method: 'POST',
       data: {
         id: id
@@ -172,15 +188,3 @@ $('#search').keyup(function () {
   load_files();
 });
 
-// toastr
-function showSuccess(pesan) {
-  toastr.success(pesan, 'Success');
-}
-
-function showDanger(pesan) {
-  toastr.error(pesan, 'Waring');
-}
-
-function showInfo(pesan) {
-  toastr.info(pesan, 'Info');
-}
