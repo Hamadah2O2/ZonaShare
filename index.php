@@ -185,7 +185,13 @@ if (isset($_GET['tag'])) {
                   <div class="input-group-bs5 me-auto" style="width: 95%;">
                     <input type="file" class="form-control-bs5" name="file[]" id="" multiple required>
                     <div style="width: 30%;">
-                      <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id="" placeholder="Tagar" autocomplete="off">
+                      <!-- <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id="" placeholder="Tagar" autocomplete="off"> -->
+                      <select name="tag" class="form-select">
+                        <option value="">---</option>
+                        <?php foreach ($hashtag as $tag) { ?>
+                          <option value="<?= $tag ?>"><?= $tag ?></option>
+                        <?php } ?>
+                      </select>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Upload">
                   </div>

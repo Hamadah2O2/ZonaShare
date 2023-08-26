@@ -47,7 +47,8 @@
 <!-- ZonaShare js -->
 <script type="text/javascript" src="<?= base_url() ?>assets/js/zonashare.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery-multiselect-checkbox@latest/dist/jquery-multiselect-checkbox.min.js"></script>
+<!-- MultiSelect js -->
+<script src="<?= base_url() ?>assets/js/multiselect.js"></script>
 
 <!-- knob -->
 <script type="text/javascript">

@@ -38,8 +38,8 @@
   <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <!-- SORTABLE -->
-  <link href="./assets/sortable-2.2.0/sortable.css" rel="stylesheet" />
-  <script src="./assets/sortable-2.2.0/sortable.js"></script>
+  <!-- <link href="./assets/sortable-2.2.0/sortable.css" rel="stylesheet" />
+  <script src="./assets/sortable-2.2.0/sortable.js"></script> -->
 
   <!-- Costom Style -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/customStyle.css">

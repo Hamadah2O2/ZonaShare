@@ -49,12 +49,12 @@ function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val(
     },
     success: function (hasil) {
       $('#files').html(hasil);
-      setTimeout(() => { 
+      setTimeout(() => {
         $(".select-all-checkbox").multiselectCheckbox({
           checkboxes: ".tablex .select-checkbox",
           sync: ".tablex .rowx"
         });
-      }, 1000);
+      }, 1500);
     }
   });
 }
@@ -63,7 +63,7 @@ function load_files(search, col = $("#sortby").val(), asdesc = $("#asdesc").val(
 function sort(col, asdesc) {
   load_files(undefined, col, asdesc, undefined);
 }
- 
+
 // tag
 function useTag(tag) {
   load_files(undefined, undefined, undefined, tag);
@@ -86,12 +86,42 @@ function load_storage() {
   });
 }
 
+// Cek Update Data yang di sharing
+function checkUpdate() {
+  myFile = $("#jumFile").val();
+  sharedFile = $("#jumFileDibagikan").val();
+  $.ajax({
+    method: "POST",
+    url: "./data/update.php",
+    data: {
+      myFile: myFile,
+      sharedFile: sharedFile
+    },
+    success: function (hasil) {
+      $('#storage').html(hasil);
+    }
+  });
+}
+
 $(document).ready(function () {
   loadall();
-  // setInterval(function(){
-  //   loadall();
-  // }, 1000);
 });
+
+// Play Interval
+function cekInterval() {
+  if (('input[name="pilih[]"]').is("checked")) {
+    auto = clearInterval(auto);
+    toastr.warning("ada yang di check");
+  } else {
+    auto = setInterval(function () {
+      loadall();
+      // checkUpdate();
+    }, 1500);
+    toastr.error("gada yang di check");
+  }
+};
+auto = setInterval(cekInterval(), 1500);
+
 
 // CRUD
 // upload
