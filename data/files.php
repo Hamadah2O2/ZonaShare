@@ -14,6 +14,12 @@ $sortby = $_POST['col'];
 $asdesc = $_POST['asdesc'];
 $tag = $_POST['tag'];
 
+// Simpan Update Statement
+$sq1 = "SELECT COUNT(nama) FROM files WHERE pemilik = '$user'";
+$sq2 = "SELECT COUNT(nama) FROM files WHERE pemilik != '$user' AND globaly = 1";
+$FCount = $c->query($sq1)->fetch_array()[0];
+$SCount = $c->query($sq2)->fetch_array()[0];
+
 if (isset($_POST['search']) && $_POST['search'] != "") {
   $s = $_POST['search'];
   $s = strtolower($s);
@@ -34,26 +40,32 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
   <input type="text" name="asdesc" id="asdesc" value="<?= $asdesc ?>">
   <input type="text" name="sortby" id="sortby" value="<?= $sortby ?>">
   <input class="d-none" type="text" name="tagSelected" id="tagSelected" value="<?= $tag ?>">
+  <input type="text" name="myFileCount" id="myFileCount" value="<?= $FCount ?>">
+  <input type="text" name="sharedFileCount" id="sharedFileCount" value="<?= $SCount ?>">
 </div>
 <form method="post" id="dataFile">
   <?php
-    if ($tag != "") { ?>
-      <tr>
-        <td class="border-1 text-center" colspan="6" onclick="removeTag()">
-          <?= $tag ?> <i class="fa fa-close"></i>
-        </td>
-      </tr>
-    <?php }
+  if ($tag != "") { ?>
+    <tr>
+    <td class="border-1" colspan="6" onclick="removeTag()" style="background-color: #ecfffb;">
+        <div class="text-center row">
+          <div class="col" style=""></div>
+          <div class="col" style=""> # <?= $tag ?> </div>
+          <div class="col text-right"><i class="fas fa-times"></i></div>
+        </div>
+      </td>
+    </tr>
+  <?php }
   ?>
   <thead>
     <tr>
       <th>
         <input type="checkbox" class="select-all-checkbox" value="1" />
       </th>
-      <th onclick="sort('nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
-      <th onclick="sort('ukuran', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Ukuran <i class="fas fa-sort<?= ($sortby == 'ukuran') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
-      <th onclick="sort('date', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Date <i class="fas fa-sort<?= ($sortby == 'date') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
-      <th onclick="sort('tag', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')" class="text-center">Tag <i class="fas fa-sort<?= ($sortby == 'tag') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
+      <th onclick="sort('nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50'; ?>"></i></th>
+      <th onclick="sort('ukuran', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Ukuran <i class="fas fa-sort<?= ($sortby == 'ukuran') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50'; ?>"></i></th>
+      <th onclick="sort('date', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Date <i class="fas fa-sort<?= ($sortby == 'date') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50'; ?>"></i></th>
+      <th onclick="sort('tag', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')" class="text-center">Tag <i class="fas fa-sort<?= ($sortby == 'tag') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50'; ?>"></i></th>
       <th class="text-center">Aksi </th>
     </tr>
   </thead>

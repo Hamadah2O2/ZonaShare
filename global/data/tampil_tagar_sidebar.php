@@ -18,7 +18,7 @@ if (isset($_POST['tag_search']) && $_POST != "") {
 
 while ($data = $stm->fetch_array()) { ?>
   <li class="nav-item">
-    <a href="#" onclick="useTag(<?= $data['tag'] ?>)" class="nav-link">
+    <a href="#" onclick="useTag('<?= $data['tag'] ?>')" class="nav-link">
       <i class="nav-icon fas fa-fw fa-hashtag"></i>
       <p><?= $data['tag'] ?></p>
     </a>

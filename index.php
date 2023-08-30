@@ -202,9 +202,6 @@ if (isset($_GET['tag'])) {
 
                 <div class="d-flex align-items-center">
                   <div class="mr-3 text-opacity-50">
-                    <a href="#" class="btn text-black-50 refresh" id="refresh">
-                      <i class="fas fa-retweet"></i>
-                    </a>
                     <a href="#" class="btn text-black-50" id="deleteMany">
                       <i class="fas fa-trash-alt"></i>
                     </a>
@@ -227,13 +224,12 @@ if (isset($_GET['tag'])) {
             <div class="card-body table-responsive p-0" style="height: 79vh;">
               <table class="table table-head-fixed text-nowrap tablex" id="files">
 
-                <tr>
-                  <td><input class="d-none" type="text" name="asdesc" id="asdesc" value="desc"></td>
-                  <td><input class="d-none" type="text" name="sortby" id="sortby" value="date"></td>
-                  <td><input class="d-none" type="text" name="tagSelected" id="tagSelected" value=""></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                <tr class="d-none" id="tableSetting">
+                  <td><input type="text" name="asdesc" id="asdesc" value="desc"></td>
+                  <td><input type="text" name="sortby" id="sortby" value="date"></td>
+                  <td><input type="text" name="tagSelected" id="tagSelected" value=""></td>
+                  <td><input type="text" name="myFileCount" id="myFileCount" value=""></td>
+                  <td><input type="text" name="sharedFileCount" id="sharedFileCount" value=""></td>
                 </tr>
 
                 <thead>
