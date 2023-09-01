@@ -9,6 +9,8 @@ if (isset($_SESSION['user'])) {
   header("location: ./login");
 }
 
+$storageLimit = $c->query("SELECT * FROM users WHERE username = '$user'")->fetch_array('batas_penyimpanan');
+
 $namafile = "";
 $ukuranfile = "";
 $jenisfile = "";
