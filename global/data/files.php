@@ -12,20 +12,39 @@ if (isset($_SESSION['user'])) {
 
 $sortby = $_POST['col'];
 $asdesc = $_POST['asdesc'];
+$tag = $_POST['tag'];
 
 if (isset($_POST['search']) && $_POST['search'] != "") {
   $s = $_POST['search'];
   $s = strtolower($s);
-  $stm = $c->query("SELECT * FROM files WHERE globaly = 1 AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
+  if ($tag != "") {
+    $stm = $c->query("SELECT * FROM files WHERE globaly = 1 AND tag LIKE '$tag' AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
+  } else {
+    $stm = $c->query("SELECT * FROM files WHERE globaly = 1 AND (LOWER(nama) LIKE '%$s%' OR LOWER(jenis) LIKE '%$s%' OR LOWER(tag) LIKE '%$s%' OR LOWER(date) LIKE '%$s%') ORDER BY $sortby $asdesc");
+  }
 } else {
-  $stm = $c->query("SELECT * FROM files WHERE globaly = 1 ORDER BY $sortby $asdesc");
+  if ($tag != "") {
+    $stm = $c->query("SELECT * FROM files WHERE globaly = 1 AND tag LIKE '$tag' ORDER BY $sortby $asdesc");
+  } else {
+    $stm = $c->query("SELECT * FROM files WHERE globaly = 1 ORDER BY $sortby $asdesc");
+  }
 } ?>
 
 <div class="d-none">
   <input type="text" name="asdesc" id="asdesc" value="<?= $asdesc ?>">
   <input type="text" name="sortby" id="sortby" value="<?= $sortby ?>">
+  <input class="d-none" type="text" name="tagSelected" id="tagSelected" value="<?= $tag ?>">
 </div>
 <form method="post" id="dataFile">
+<?php
+    if ($tag != "") { ?>
+      <tr>
+        <td class="border-1 text-center" colspan="5" onclick="removeTag()">
+          <?= $tag ?> <i class="fa fa-times fa-align-center float-right"></i>
+        </td>
+      </tr>
+    <?php }
+  ?>
   <thead>
     <tr>
       <th onclick="load_files('', 'nama', '<?= ($asdesc == 'ASC') ? 'DESC' : 'ASC'; ?>')">Nama File <i class="fas fa-sort<?= ($sortby == 'nama') ? ($asdesc == 'ASC') ? '-up' : '-down' : ' text-black-50' ; ?>"></i></th>
