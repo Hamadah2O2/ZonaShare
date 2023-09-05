@@ -12,12 +12,6 @@ if (isset($_SESSION['user'])) {
   header("location: ./login");
 }
 
-if (isset($_GET['tag'])) {
-  $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user' AND tag = '$_GET[tag]'");
-} else {
-  $stm = $c->query("SELECT * FROM files WHERE pemilik = '$user'");
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -186,14 +180,14 @@ if (isset($_GET['tag'])) {
                     <input type="file" class="form-control-bs5" name="file[]" id="" multiple required>
                     <div style="width: 30%;">
                       <!-- <input type="text" class="form-control-bs5 rounded-0" name="tag" list="tag" id="" placeholder="Tagar" autocomplete="off"> -->
-                      <select name="tag" class="form-select">
+                      <select name="tag" class="form-select rounded-0">
                         <option value="">---</option>
                         <?php foreach ($hashtag as $tag) { ?>
                           <option value="<?= $tag ?>"><?= $tag ?></option>
                         <?php } ?>
                       </select>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Upload">
+                    <button type="submit" class="btn btn-primary">Upload</button>
                   </div>
                   <datalist id="tag">
 

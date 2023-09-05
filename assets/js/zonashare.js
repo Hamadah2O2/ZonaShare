@@ -174,7 +174,7 @@ $("#deleteMany").click(function () {
 });
 
 // share
-function share(nama, id) {
+function share(id) {
   $.ajax({
     url: './aksi.php?shareit=',
     method: 'POST',
@@ -187,7 +187,7 @@ function share(nama, id) {
     }
   });
 }
-function stopShare(nama, id) {
+function stopShare(id) {
   $.ajax({
     url: './aksi.php?shareit=',
     method: 'POST',

@@ -89,7 +89,7 @@ if (isset($_POST['search']) && $_POST['search'] != "") {
           <button class="btn btn-sm btn-danger" onclick="deleteFile(<?= $data[0] ?>)" data-toggle="tooltip" title="Hapus">
             <i class="fas fa-trash " style="font-size: 15px;"></i>
           </button>
-          <button class="btn btn-sm <?= ($data['globaly'] >= 1) ? "btn-success" : "btn-secondary"; ?>" onclick="<?= ($data['globaly'] == 1) ? 'stopShare' : 'share' ?>('<?= $data['nama'] ?>', <?= $data[0] ?>)" data-toggle="tooltip" title="Hapus">
+          <button class="btn btn-sm <?= ($data['globaly'] >= 1) ? "btn-success" : "btn-secondary"; ?>" onclick="<?= ($data['globaly'] == 1) ? 'stopShare' : 'share' ?>(<?= $data[0] ?>)" data-toggle="tooltip" title="Bagikan">
             <i class="fas fa-share" style="font-size: 15px;"></i>
           </button>
           </a>

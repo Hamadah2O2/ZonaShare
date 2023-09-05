@@ -9,6 +9,9 @@ if (isset($_SESSION['user'])) {
   header("location: ./login");
 }
 
+$storageLimit = $c->query("SELECT * FROM users WHERE username = '$user'")->fetch_array()['batas_penyimpanan'];
+echo $storageLimit;
+
 $namafile = "";
 $ukuranfile = "";
 $jenisfile = "";
@@ -79,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['hapus'])) {
   }
 } else  
 
-if (isset($_GET['shareit']) && isset($_POST['id'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['shareit']) && isset($_POST['id'])) {
   $id = $_POST['id'];
   $stm = $c->query("SELECT * FROM files WHERE id = '$id'");
 
@@ -109,9 +112,18 @@ if (isset($_GET['shareit']) && isset($_POST['id'])) {
           break;
       }
     } else {
+      ?>
+      <script>
+        toastr.error("File <?= $data['nama'] ?> bukan punya lu!");
+      </script>
+      <?php
     }
   } else {
-    header("location: ./");
+    ?>
+      <script>
+        toastr.warning("File tidak ada");
+      </script>
+      <?php
   }
 } else {
   header("location: ./");
