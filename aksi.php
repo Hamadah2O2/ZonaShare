@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['shareit']) && isset($_P
       $global = $data['globaly'];
       switch ($global) {
         case 0:
-          $stm = $c->query("UPDATE files SET globaly = 1 WHERE id = '$id'");
+          $stm = $c->query("UPDATE files SET globaly = 1, sharedAt = NOW() WHERE id = '$id'");
           $stm; ?>
           <script>
             toastr.success("<?= $data['nama'] ?> File berhasil di bagikan");
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['shareit']) && isset($_P
         <?php 
         break;
         case 1:
-          $stm = $c->query("UPDATE files SET globaly = 0 WHERE id = '$id'");
+          $stm = $c->query("UPDATE files SET globaly = 0, sharedAt = NULL WHERE id = '$id'");
           $stm; ?>
           <script>
             toastr.info("<?= $data['nama'] ?> File berhenti di bagikan");

@@ -88,17 +88,17 @@ function load_storage() {
 
 // Cek Update Data yang di sharing
 function checkUpdate() {
-  myFile = $("#jumFile").val();
-  sharedFile = $("#jumFileDibagikan").val();
+  myFile = $("#myFileCount").val();
+  sharedFile = $("#sharedFileCount").val();
   $.ajax({
     method: "POST",
     url: "./data/update.php",
     data: {
-      myFile: myFile,
-      sharedFile: sharedFile
+      myFileCount: myFile,
+      sharedFileCount: sharedFile
     },
     success: function (hasil) {
-      $('#storage').html(hasil);
+      $('#pesan').html(hasil);
     }
   });
 }
@@ -108,25 +108,14 @@ $(document).ready(function () {
 });
 
 // Play Interval
-function cekInterval() {
-  if (('input[name="pilih[]"]').is("checked")) {
-    auto = clearInterval(auto);
-    toastr.warning("ada yang di check");
-  } else {
-    auto = setInterval(function () {
-      loadall();
-      // checkUpdate();
-    }, 1500);
-    toastr.error("gada yang di check");
-  }
-};
-auto = setInterval(cekInterval(), 1500);
+auto = setInterval(function () { checkUpdate() }, 1500);
 
 
 // CRUD
 // upload
 $('#dataUpload').on('submit', function (e) {
   e.preventDefault();
+  auto = clearInterval(auto);
   var formData = new FormData(this);
   $.ajax({
     url: './aksi.php?tambah',
@@ -138,6 +127,7 @@ $('#dataUpload').on('submit', function (e) {
       $('#pesan').html(h);
       loadall();
       $('#dataUpload').get(0).reset();
+      auto = setInterval(function () { checkUpdate() }, 1500);
     }
   });
 });
@@ -145,6 +135,7 @@ $('#dataUpload').on('submit', function (e) {
 // delete
 function deleteFile(id) {
   if (confirm('apakah kamu yakin menghapus file ini?') == true) {
+    auto = clearInterval(auto);
     $.ajax({
       url: './aksi.php?hapus',
       method: 'POST',
@@ -154,6 +145,7 @@ function deleteFile(id) {
       success: function (h) {
         $('#pesan').html(h);
         load_files();
+        auto = setInterval(function () { checkUpdate() }, 1500);
       }
     });
   }
@@ -162,6 +154,7 @@ function deleteFile(id) {
 // deleteMany
 $("#deleteMany").click(function () {
   if (confirm('apakah kamu yakin menghapus beberapa file ini?') == true) {
+    auto = clearInterval(auto);
     var id = $('input[name="pilih[]"]:checked').map(function () {
       return $(this).val();
     }).get();
@@ -174,6 +167,7 @@ $("#deleteMany").click(function () {
       success: function (h) {
         $('#pesan').html(h);
         load_files();
+        auto = setInterval(function () { checkUpdate() }, 1500);
       }
     });
   }

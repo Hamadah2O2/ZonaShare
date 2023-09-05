@@ -164,9 +164,9 @@ if (isset($_GET['tag'])) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper overflow-visible">
       <!-- Content Header (Page header) -->
-        <div class="p-2">
+      <div class="p-2">
 
-        </div> 
+      </div>
       <!-- /.content-header -->
 
       <!-- Main content -->
@@ -182,9 +182,7 @@ if (isset($_GET['tag'])) {
 
                 <div class="d-flex align-items-center">
                   <div class="mr-3">
-                    <a href="#" class="btn text-bg-danger refresh" id="refresh">
-                      <i class="fas fa-retweet"></i>
-                    </a>
+                    
                   </div>
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input name="table_search" class="form-control float-right" placeholder="Search" id="search" type="text">
@@ -203,21 +201,12 @@ if (isset($_GET['tag'])) {
             <div class="card-body table-responsive p-0" style="height: 79vh;">
               <table class="table table-head-fixed text-nowrap" id="files">
 
-                <tr>
-                  <td><input class="d-none" type="text" name="asdesc" id="asdesc" value="desc"></td>
-                  <td><input class="d-none" type="text" name="tagSelected" id="tagSelected" value=""></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><input class="d-none" type="text" name="sortby" id="sortby" value="date"></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                <tr class="d-none">
+                  <td><input type="text" name="asdesc" id="asdesc" value="desc"></td>
+                  <td><input type="text" name="sortby" id="sortby" value="sharedAt"></td>
+                  <td><input type="text" name="tagSelected" id="tagSelected" value=""></td>
+                  <td><input type="text" name="myFileCount" id="myFileCount" value=""></td>
+                  <td><input type="text" name="sharedFileCount" id="sharedFileCount" value=""></td>
                 </tr>
 
                 <thead>
@@ -225,7 +214,7 @@ if (isset($_GET['tag'])) {
                     <th class="no-sort"></th>
                     <th>Nama File</th>
                     <th>Ukuran</th>
-                    <th>Date</th>
+                    <th>Dibagikan pada</th>
                     <th class="text-center">Tag</th>
                     <th class="text-center">Aksi</th>
                   </tr>
